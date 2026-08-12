@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 export default function NotificationsList({ staff }) {
   const [notifications, setNotifications] = useState([]);
@@ -8,7 +9,7 @@ export default function NotificationsList({ staff }) {
   const fetchNotifications = () => {
     if (!staff) return;
     setLoading(true);
-    fetch(`http://localhost:5000/api/notifications/${staff.id || staff._id}`)
+    fetch(`${API_BASE_URL}/api/notifications/${staff.id || staff._id}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch notifications');
         return res.json();
@@ -31,7 +32,7 @@ export default function NotificationsList({ staff }) {
   const handleMarkAsRead = async (id, e) => {
     e.stopPropagation();
     try {
-      const response = await fetch(`http://localhost:5000/api/notifications/${id}/read`, {
+      const response = await fetch(`${API_BASE_URL}/api/notifications/${id}/read`, {
         method: 'PUT',
       });
       if (response.ok) {

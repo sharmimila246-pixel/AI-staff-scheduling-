@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -8,7 +9,7 @@ export default function CalendarView() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/calendar')
+    fetch(`${API_BASE_URL}/api/calendar`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch calendar');
         return res.json();

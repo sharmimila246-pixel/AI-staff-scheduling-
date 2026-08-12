@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 const connectDB = require('./config/db');
 
@@ -19,17 +21,32 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-// Define routes
+// API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/schedule', scheduleRoutes);
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/notifications', notificationRoutes);
 
-// Test route
-app.get('/', (req, res) => {
-  res.send('AI Staff Scheduler API is running...');
+// Health check API endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'AI Staff Scheduler API is running...' });
 });
+
+// Serve frontend static assets in production or if dist exists
+const distPath = path.join(__dirname, '../frontend/dist');
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+  app.get('*', (req, res) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.resolve(distPath, 'index.html'));
+    }
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.send('AI Staff Scheduler API is running...');
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 

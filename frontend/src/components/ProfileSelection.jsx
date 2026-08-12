@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { API_BASE_URL } from '../config';
 
 const DEPARTMENTS = [
   'All Departments',
@@ -47,7 +48,7 @@ export default function ProfileSelection({ onProfileSelect, onBackToHome }) {
   const menuRef = useRef(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/staff')
+    fetch(`${API_BASE_URL}/api/staff`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch staff list');
         return res.json();
@@ -114,7 +115,7 @@ export default function ProfileSelection({ onProfileSelect, onBackToHome }) {
     }
 
     setSavingRename(true);
-    fetch(`http://localhost:5000/api/staff/${staffId}`, {
+    fetch(`${API_BASE_URL}/api/staff/${staffId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: editNameInput.trim() })
@@ -153,7 +154,7 @@ export default function ProfileSelection({ onProfileSelect, onBackToHome }) {
     const confirmed = window.confirm(`Are you sure you want to remove "${staff.name}"?`);
     if (!confirmed) return;
 
-    fetch(`http://localhost:5000/api/staff/${staff._id}`, {
+    fetch(`${API_BASE_URL}/api/staff/${staff._id}`, {
       method: 'DELETE'
     })
       .then(res => {

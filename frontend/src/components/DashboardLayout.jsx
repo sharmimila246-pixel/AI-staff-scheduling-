@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 import ScheduleView from './ScheduleView';
 import CalendarView from './CalendarView';
 import NotificationsList from './NotificationsList';
@@ -13,7 +14,7 @@ export default function DashboardLayout({ staff, onLogout, onStaffUpdate }) {
   useEffect(() => {
     if (!staff) return;
     const fetchCount = () => {
-      fetch(`http://localhost:5000/api/notifications/${staff.id || staff._id}`)
+      fetch(`${API_BASE_URL}/api/notifications/${staff.id || staff._id}`)
         .then(res => res.json())
         .then(data => {
           const unread = data.filter(n => !n.read).length;
@@ -32,7 +33,7 @@ export default function DashboardLayout({ staff, onLogout, onStaffUpdate }) {
     if (!confirm('Optimize scheduling? The AI engine will re-balance conflicts and update tables.')) return;
     
     try {
-      const response = await fetch('http://localhost:5000/api/schedule/generate', {
+      const response = await fetch(`${API_BASE_URL}/api/schedule/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ staffId: staff.id || staff._id }),

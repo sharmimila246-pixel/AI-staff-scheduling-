@@ -1,9 +1,17 @@
 {
-  "name": "harish-workspace",
+  "name": "harish-ai-staff-scheduler",
+  "version": "1.0.0",
+  "description": "AI Staff Scheduler - College Timetable Management System",
+  "main": "backend/server.js",
   "private": true,
   "scripts": {
-    "dev": "npm --prefix harish/frontend run dev --",
-    "build": "npm --prefix harish/frontend run build",
-    "start": "npm --prefix harish run start"
-  }
+    "dev": "npm --prefix frontend run dev --",
+    "start": "node backend/server.js",
+    "build": "cd frontend && npm install && npm run build",
+    "seed": "cd backend && node seed.js",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

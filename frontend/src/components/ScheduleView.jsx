@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 const DAYS = [
   'Monday',
@@ -27,7 +28,7 @@ export default function ScheduleView({ staff }) {
   useEffect(() => {
     if (!staff) return;
     setLoading(true);
-    fetch(`http://localhost:5000/api/schedule/${staff.id || staff._id}`)
+    fetch(`${API_BASE_URL}/api/schedule/${staff.id || staff._id}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch schedule');
         return res.json();
