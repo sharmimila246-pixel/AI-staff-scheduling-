@@ -12,7 +12,7 @@ const demoStaff = [
     employeeId: 'EMP1001',
     avatarUrl: '',
     username: 'alice.k',
-    password: 'alice123',
+    password: 'password123',
   },
   {
     _id: 'demo2',
@@ -25,7 +25,7 @@ const demoStaff = [
     employeeId: 'EMP1002',
     avatarUrl: '',
     username: 'ravi.s',
-    password: 'ravi123',
+    password: 'password123',
   },
   {
     _id: 'demo3',
@@ -38,7 +38,7 @@ const demoStaff = [
     employeeId: 'EMP1003',
     avatarUrl: '',
     username: 'neha.p',
-    password: 'neha123',
+    password: 'password123',
   }
 ];
 
