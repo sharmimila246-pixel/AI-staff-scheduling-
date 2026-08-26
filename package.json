@@ -1,0 +1,9 @@
+{
+  "name": "harish-workspace",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix harish/frontend run dev --",
+    "build": "npm --prefix harish/frontend run build",
+    "start": "npm --prefix harish run start"
+  }
+}
