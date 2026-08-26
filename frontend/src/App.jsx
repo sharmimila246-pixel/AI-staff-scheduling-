@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import LandingPage from './components/LandingPage';
 import ProfileSelection from './components/ProfileSelection';
 import LoginPage from './components/LoginPage';
@@ -8,22 +8,6 @@ export default function App() {
   const [view, setView] = useState('landing');
   const [selectedStaff, setSelectedStaff] = useState(null);
   const [loggedInStaff, setLoggedInStaff] = useState(null);
-
-  // Auto login check from localStorage
-  useEffect(() => {
-    const cachedStaff = localStorage.getItem('staffUser');
-    const token = localStorage.getItem('staffToken');
-    if (cachedStaff && token) {
-      try {
-        setLoggedInStaff(JSON.parse(cachedStaff));
-        setView('dashboard');
-      } catch (err) {
-        console.error('Failed to parse cached staff info', err);
-        localStorage.removeItem('staffUser');
-        localStorage.removeItem('staffToken');
-      }
-    }
-  }, []);
 
   const handleProfileSelect = (staff) => {
     setSelectedStaff(staff);
