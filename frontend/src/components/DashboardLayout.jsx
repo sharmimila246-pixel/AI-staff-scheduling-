@@ -69,8 +69,9 @@ export default function DashboardLayout({ staff, onLogout, onStaffUpdate }) {
       case 'notifications':
         return <NotificationsList staff={staff} />;
       case 'profile':
+        return <ProfileSettings staff={staff} mode="profile" onStaffUpdate={onStaffUpdate} />;
       case 'password':
-        return <ProfileSettings staff={staff} onStaffUpdate={onStaffUpdate} />;
+        return <ProfileSettings staff={staff} mode="password" onStaffUpdate={onStaffUpdate} />;
       default:
         return <ScheduleView staff={staff} />;
     }

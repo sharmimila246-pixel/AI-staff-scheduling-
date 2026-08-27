@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../config';
 
-export default function ProfileSettings({ staff, onStaffUpdate }) {
+export default function ProfileSettings({ staff, mode = 'profile', onStaffUpdate }) {
+  const showProfile = mode === 'profile';
+  const showPassword = mode === 'password';
   const [name, setName] = useState(staff.name);
   const [email, setEmail] = useState(staff.email);
   const [contact, setContact] = useState(staff.contact);
@@ -115,14 +117,18 @@ export default function ProfileSettings({ staff, onStaffUpdate }) {
     <div className="animate-fade" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
       <div className="view-header">
         <div className="view-title-group">
-          <h2>Profile Settings</h2>
-          <p>Update your contact email, phone number, and change account credentials.</p>
+          <h2>{showProfile ? 'My Profile' : 'Change Password'}</h2>
+          <p>
+            {showProfile
+              ? 'View and update your staff information and contact details.'
+              : 'Update your account password to keep your staff access secure.'}
+          </p>
         </div>
       </div>
 
-      <div className="profile-grid-container">
+      <div className={`profile-grid-container ${showPassword ? 'password-page-container' : 'profile-page-container'}`}>
         {/* Profile Card */}
-        <div className="profile-info-card">
+        {showProfile && <div className="profile-info-card">
           <div className="profile-avatar-large" style={getAvatarStyle(staff.name)}>
             {getInitials(staff.name)}
           </div>
@@ -222,10 +228,10 @@ export default function ProfileSettings({ staff, onStaffUpdate }) {
               </div>
             </form>
           )}
-        </div>
+        </div>}
 
         {/* Change Password Card */}
-        <div className="profile-form-card">
+        {showPassword && <div className="profile-form-card password-form-card">
           <h3>Change Password</h3>
           {passwordSuccess && <div className="form-success-message">{passwordSuccess}</div>}
           {passwordError && <div style={{ padding: '0.75rem 1rem', background: '#fee2e2', color: '#ef4444', borderRadius: '8px', marginBottom: '1.5rem', fontSize: '0.85rem' }}>{passwordError}</div>}
@@ -271,7 +277,7 @@ export default function ProfileSettings({ staff, onStaffUpdate }) {
               Update Password
             </button>
           </form>
-        </div>
+        </div>}
       </div>
     </div>
   );

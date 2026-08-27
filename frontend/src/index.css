@@ -1383,9 +1383,26 @@ button, input, select {
   align-items: start;
 }
 
+.profile-page-container,
+.password-page-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.profile-page-container .profile-info-card,
+.password-page-container .password-form-card {
+  width: min(100%, 640px);
+}
+
 @media (max-width: 900px) {
   .profile-grid-container {
     grid-template-columns: 1fr;
+  }
+
+  .profile-page-container,
+  .password-page-container {
+    display: flex;
   }
 }
 

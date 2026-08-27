@@ -1,10 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const Notification = require('../models/Notification');
+const mongoose = require('mongoose');
 
 // @route   GET api/notifications/:staffId
 // @desc    Get notifications by staff ID
 router.get('/:staffId', async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.json([]);
+  }
+
   try {
     const notifications = await Notification.find({ staffId: req.params.staffId }).sort({ createdAt: -1 });
     res.json(notifications);
